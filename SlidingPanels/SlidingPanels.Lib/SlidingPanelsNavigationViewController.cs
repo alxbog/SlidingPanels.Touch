@@ -97,6 +97,20 @@ namespace SlidingPanels.Lib
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Occurs when a sliding panel should be shown on swipe
+        /// </summary>
+        public event EventHandler SwipedToShow;
+
+        /// <summary>
+        /// Occurs when a sliding panel should be hidden on swipe
+        /// </summary>
+        public event EventHandler SwipedToHide;
+
+        #endregion
+
         #region Construction/Destruction
 
         /// <summary>
@@ -133,9 +147,19 @@ namespace SlidingPanels.Lib
 
 			_slidingGesture = new SlidingGestureRecogniser(_panelContainers, ShouldReceiveTouch, this, View);
 
-            _slidingGesture.ShowPanel += (sender, e) => ShowPanel(((SlidingGestureEventArgs) e).PanelContainer);
+            _slidingGesture.ShowPanel += (sender, e) =>
+            {
+                if (SwipedToShow != null)
+                    SwipedToShow(sender, e);
+                ShowPanel(((SlidingGestureEventArgs) e).PanelContainer);
+            };
 
-            _slidingGesture.HidePanel += (sender, e) => HidePanel(((SlidingGestureEventArgs) e).PanelContainer);
+            _slidingGesture.HidePanel += (sender, e) =>
+            {
+                if (SwipedToHide != null)
+                    SwipedToHide(sender, e);
+                HidePanel(((SlidingGestureEventArgs) e).PanelContainer);
+            };
 
 			View.ClipsToBounds = true;
 			View.Layer.ShadowColor = ShadowColor;
