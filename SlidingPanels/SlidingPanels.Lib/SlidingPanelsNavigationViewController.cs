@@ -22,10 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.CoreGraphics;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using UIKit;
 using SlidingPanels.Lib.PanelContainers;
-using System.Drawing;
 
 namespace SlidingPanels.Lib
 {
@@ -166,8 +165,8 @@ namespace SlidingPanels.Lib
 			View.Layer.MasksToBounds = false;
 			View.Layer.ShadowOpacity = ShadowOpacity;
 
-			RectangleF shadow = View.Bounds;
-			shadow.Inflate(new SizeF(3,3));
+			var shadow = View.Bounds;
+			shadow.Inflate(new CGSize(3,3));
 			View.Layer.ShadowPath = UIBezierPath.FromRoundedRect(shadow, 0).CGPath;
 		}
 
@@ -329,7 +328,7 @@ namespace SlidingPanels.Lib
             container.Show();
 
             UIView.Animate(AnimationSpeed, 0, UIViewAnimationOptions.CurveEaseInOut,
-                delegate { View.Frame = container.GetTopViewPositionWhenSliderIsVisible(View.Frame); },
+                delegate { View.Frame = container.GetTopViewPositionWhenSliderIsVisible((CGRect)View.Frame); },
                 delegate
                 {
                     View.AddGestureRecognizer(_tapToClose);
@@ -346,7 +345,7 @@ namespace SlidingPanels.Lib
             container.ViewWillDisappear(true);
 
             UIView.Animate(AnimationSpeed, 0, UIViewAnimationOptions.CurveEaseInOut,
-                delegate { View.Frame = container.GetTopViewPositionWhenSliderIsHidden(View.Frame); },
+                delegate { View.Frame = container.GetTopViewPositionWhenSliderIsHidden((CGRect)View.Frame); },
                 delegate
                 {
                     View.RemoveGestureRecognizer(_tapToClose);

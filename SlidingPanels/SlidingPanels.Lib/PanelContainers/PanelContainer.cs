@@ -1,27 +1,26 @@
-/// Copyright (C) 2013 Pat Laplante & Frank Caico
-///
-///	Permission is hereby granted, free of charge, to  any person obtaining a copy 
-/// of this software and associated documentation files (the "Software"), to deal 
-/// in the Software without  restriction, including without limitation the rights 
-/// to use, copy,  modify,  merge, publish,  distribute,  sublicense, and/or sell 
-/// copies of the  Software,  and  to  permit  persons  to   whom the Software is 
-/// furnished to do so, subject to the following conditions:
-///
-///		The above  copyright notice  and this permission notice shall be included 
-///     in all copies or substantial portions of the Software.
-///
-///		THE  SOFTWARE  IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-///     OR   IMPLIED,   INCLUDING  BUT   NOT  LIMITED   TO   THE   WARRANTIES  OF 
-///     MERCHANTABILITY,  FITNESS  FOR  A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-///     IN NO EVENT SHALL  THE AUTHORS  OR COPYRIGHT  HOLDERS  BE  LIABLE FOR ANY 
-///     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
-///     OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION  WITH THE SOFTWARE OR 
-///     THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-/// -----------------------------------------------------------------------------
+// Copyright (C) 2013 Pat Laplante & Frank Caico
+//
+//	Permission is hereby granted, free of charge, to  any person obtaining a copy 
+// of this software and associated documentation files (the "Software"), to deal 
+// in the Software without  restriction, including without limitation the rights 
+// to use, copy,  modify,  merge, publish,  distribute,  sublicense, and/or sell 
+// copies of the  Software,  and  to  permit  persons  to   whom the Software is 
+// furnished to do so, subject to the following conditions:
+//
+//		The above  copyright notice  and this permission notice shall be included 
+//     in all copies or substantial portions of the Software.
+//
+//		THE  SOFTWARE  IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+//     OR   IMPLIED,   INCLUDING  BUT   NOT  LIMITED   TO   THE   WARRANTIES  OF 
+//     MERCHANTABILITY,  FITNESS  FOR  A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+//     IN NO EVENT SHALL  THE AUTHORS  OR COPYRIGHT  HOLDERS  BE  LIABLE FOR ANY 
+//     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+//     OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION  WITH THE SOFTWARE OR 
+//     THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// -----------------------------------------------------------------------------
 
-using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 
 namespace SlidingPanels.Lib.PanelContainers
 {
@@ -75,7 +74,7 @@ namespace SlidingPanels.Lib.PanelContainers
         /// Gets the size of the panel
         /// </summary>
         /// <value>The size.</value>
-        public virtual SizeF Size { 
+        public virtual CGSize Size { 
             get; 
             private set; 
         }
@@ -136,7 +135,7 @@ namespace SlidingPanels.Lib.PanelContainers
         /// <param name="animated">If set to <c>true</c> animated.</param>
         public override void ViewWillAppear (bool animated)
         {
-            RectangleF frame = UIScreen.MainScreen.Bounds;
+            var frame = UIScreen.MainScreen.Bounds;
 
             if (InterfaceOrientation != UIInterfaceOrientation.Portrait) {
                 frame.Width = UIScreen.MainScreen.Bounds.Height;
@@ -229,7 +228,7 @@ namespace SlidingPanels.Lib.PanelContainers
         /// </summary>
         /// <returns>The top view position when slider is visible.</returns>
         /// <param name="topViewCurrentFrame">Top view current frame.</param>
-        public abstract RectangleF GetTopViewPositionWhenSliderIsVisible (RectangleF topViewCurrentFrame);
+        public abstract CGRect GetTopViewPositionWhenSliderIsVisible (CGRect topViewCurrentFrame);
 
         /// <summary>
         /// Returns a rectangle representing the location and size of the top view 
@@ -237,7 +236,7 @@ namespace SlidingPanels.Lib.PanelContainers
         /// </summary>
         /// <returns>The top view position when slider is visible.</returns>
         /// <param name="topViewCurrentFrame">Top view current frame.</param>
-        public abstract RectangleF GetTopViewPositionWhenSliderIsHidden (RectangleF topViewCurrentFrame);
+        public abstract CGRect GetTopViewPositionWhenSliderIsHidden (CGRect topViewCurrentFrame);
 
         /// <summary>
         /// Determines whether this instance can start sliding given the touch position and the 
@@ -247,21 +246,21 @@ namespace SlidingPanels.Lib.PanelContainers
         /// <returns><c>true</c> if this instance can start sliding otherwise, <c>false</c>.</returns>
         /// <param name="touchPosition">Touch position.</param>
         /// <param name="topViewCurrentFrame">Top view's current frame.</param>
-        public abstract bool CanStartSliding (PointF touchPosition, RectangleF topViewCurrentFrame);
+        public abstract bool CanStartSliding (CGPoint touchPosition, CGRect topViewCurrentFrame);
 
         /// <summary>
         /// Called when sliding has started on this Panel
         /// </summary>
         /// <param name="touchPosition">Touch position.</param>
         /// <param name="topViewCurrentFrame">Top view current frame.</param>
-        public abstract void SlidingStarted (PointF touchPosition, RectangleF topViewCurrentFrame);
+        public abstract void SlidingStarted (CGPoint touchPosition, CGRect topViewCurrentFrame);
 
         /// <summary>
         /// Called while the user is sliding this Panel
         /// </summary>
         /// <param name="touchPosition">Touch position.</param>
         /// <param name="topViewCurrentFrame">Top view current frame.</param>
-        public abstract RectangleF Sliding (PointF touchPosition, RectangleF topViewCurrentFrame);
+        public abstract CGRect Sliding (CGPoint touchPosition, CGRect topViewCurrentFrame);
 
         /// <summary>
         /// Determines if a slide is complete
@@ -269,7 +268,7 @@ namespace SlidingPanels.Lib.PanelContainers
         /// <returns><c>true</c>, if sliding has ended, <c>false</c> otherwise.</returns>
         /// <param name="touchPosition">Touch position.</param>
         /// <param name="topViewCurrentFrame">Top view current frame.</param>
-        public abstract bool SlidingEnded (PointF touchPosition, RectangleF topViewCurrentFrame);
+        public abstract bool SlidingEnded (CGPoint touchPosition, CGRect topViewCurrentFrame);
 
         #endregion
 
